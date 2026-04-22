@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>南京序曲科技有限公司</title>
+  <meta name="description" content="南京序曲科技有限公司｜AI视频、AI x UI、AI培训" />
+  <style>
+    :root{
+      --bg:#060606;
+      --panel:rgba(255,255,255,.03);
+      --panel-2:rgba(255,255,255,.05);
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(255,255,255,.18);
+      --text:rgba(255,255,255,.96);
+      --text-soft:rgba(255,255,255,.65);
+      --text-faint:rgba(255,255,255,.45);
+      --radius-xl:40px;
+      --radius-lg:28px;
+      --radius-md:20px;
+      --shadow:0 30px 80px rgba(0,0,0,.45);
+      --container:1200px;
+      --ease:cubic-bezier(.22,.61,.36,1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .hidden{display:none!important}
+    .site-bg{
+      position:fixed; inset:0; pointer-events:none; z-index:-3;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 28%),
+        linear-gradient(to bottom, rgba(255,255,255,.03), transparent 24%),
+        #060606;
+    }
+    .grid-bg{
+      position:absolute; inset:0; pointer-events:none; opacity:.22;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:64px 64px;
+    }
+    .container{width:min(var(--container), calc(100% - 48px)); margin:0 auto}
+    .section{padding:96px 0}
+    .section-title-label{font-size:12px; letter-spacing:.28em; color:var(--text-faint); margin-bottom:14px}
+    .section-title{margin:0; font-size:clamp(34px,5vw,52px); line-height:1.08}
+    .section-desc{margin:0; color:var(--text-soft); line-height:1.9}
+    .hero{
+      position:relative; overflow:hidden; border-bottom:1px solid var(--line);
+      padding:88px 0 120px;
+    }
+    .hero-orb-1,.hero-orb-2,.hero-orb-3{
+      position:absolute; left:50%; transform:translateX(-50%); border-radius:999px;
+      pointer-events:none; filter:blur(70px);
+    }
+    .hero-orb-1{top:72px; width:280px; height:280px; background:rgba(255,255,255,.10); animation:breatheOrb 8s ease-in-out infinite}
+    .hero-orb-2{top:50%; margin-top:-360px; width:820px; height:820px; background:rgba(255,255,255,.035)}
+    .hero-orb-3{top:50%; margin-top:-240px; width:560px; height:560px; background:rgba(255,255,255,.05); filter:blur(56px)}
+    @keyframes breatheOrb{
+      0%,100%{transform:translateX(-50%) scale(1); opacity:.28}
+      50%{transform:translateX(-50%) scale(1.12); opacity:.48}
+    }
+    .hero-head{position:relative; max-width:900px; margin:0 auto; text-align:center}
+    .brand-small{font-size:13px; letter-spacing:.35em; color:rgba(255,255,255,.55)}
+    .brand-pill{
+      display:inline-flex; align-items:center; gap:10px; margin-top:14px;
+      padding:10px 16px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(255,255,255,.05); backdrop-filter:blur(10px);
+      color:rgba(255,255,255,.62); font-size:12px; letter-spacing:.30em;
+    }
+    .spark{
+      width:12px; height:12px; background:#fff; opacity:.92;
+      clip-path:polygon(50% 0%, 70% 30%, 100% 50%, 70% 70%, 50% 100%, 30% 70%, 0% 50%, 30% 30%);
+    }
+    .hero h1{margin:30px 0 0; font-size:clamp(46px,8vw,92px); line-height:1.02; letter-spacing:-.04em}
+    .hero p{max-width:760px; margin:22px auto 0; color:var(--text-soft); line-height:1.9; font-size:clamp(16px,2vw,18px)}
+    .hero-actions{margin-top:36px; display:flex; justify-content:center; flex-wrap:wrap; gap:16px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:14px 24px; border-radius:999px;
+      border:1px solid transparent; transition:transform .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease), box-shadow .35s var(--ease);
+      cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
+    }
+    .btn-primary{background:#fff; color:#000; box-shadow:0 12px 30px rgba(255,255,255,.10)}
+    .btn-primary:hover{transform:translateY(-2px) scale(1.03)}
+    .btn-secondary{background:transparent; color:#fff; border-color:rgba(255,255,255,.15)}
+    .btn-secondary:hover{transform:translateY(-2px); background:rgba(255,255,255,.05)}
+    .arrow{font-size:14px; transition:transform .35s var(--ease)}
+    .btn-primary:hover .arrow{transform:translate(2px,-2px)}
+    .hero-visual-wrap{position:relative; max-width:980px; margin:64px auto 0}
+    .hero-visual{
+      position:relative; height:500px; overflow:hidden; border-radius:var(--radius-xl);
+      border:1px solid var(--line); background:rgba(255,255,255,.02); backdrop-filter:blur(8px);
+      box-shadow:var(--shadow); transition:border-color .5s var(--ease), transform .5s var(--ease), background .5s var(--ease);
+    }
+    .hero-visual.is-hovering{border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.025); transform:translateY(-2px)}
+    .hero-inner-glow{
+      position:absolute; left:50%; top:50%; width:340px; height:340px; transform:translate(-50%,-50%);
+      border-radius:999px; background:rgba(255,255,255,.05); filter:blur(70px); opacity:.24;
+      transition:transform .8s var(--ease), opacity .8s var(--ease); pointer-events:none;
+    }
+    .hero-visual.is-hovering .hero-inner-glow{transform:translate(-50%,-50%) scale(1.08); opacity:.42}
+    .scan-line{
+      position:absolute; left:0; width:100%; height:1px; pointer-events:none;
+      background:linear-gradient(to right, transparent, rgba(255,255,255,.22), transparent);
+      animation:scan 6s ease-in-out infinite;
+    }
+    @keyframes scan{
+      0%{top:12%; opacity:0}
+      50%{top:88%; opacity:.55}
+      100%{top:12%; opacity:0}
+    }
+    .hero-svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+    .hero-line{transform-origin:center center; animation:lineBreathe 4s ease-in-out infinite; will-change:transform,opacity}
+    .hero-line.hovering{animation-name:lineBreatheHover}
+    @keyframes lineBreathe{
+      0%,100%{opacity:.88; transform:scaleY(.99)}
+      50%{opacity:1; transform:scaleY(1.02)}
+    }
+    @keyframes lineBreatheHover{
+      0%,100%{opacity:.88; transform:scaleY(.96)}
+      50%{opacity:1; transform:scaleY(1.10)}
+    }
+    .hero-core{transform-origin:center center; animation:corePulse 1.2s ease-in-out infinite}
+    @keyframes corePulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.2)}
+    }
+    .services{padding-top:88px}
+    .services-top{display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:48px; flex-wrap:wrap}
+    .services-top p{max-width:520px}
+    .cards{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px}
+    .card{
+      position:relative; overflow:hidden; border-radius:var(--radius-lg); border:1px solid var(--line);
+      background:var(--panel); padding:28px; transition:transform .45s var(--ease), border-color .45s var(--ease), background .45s var(--ease), box-shadow .45s var(--ease);
+      cursor:pointer;
+    }
+    .card::before{
+      content:""; position:absolute; inset:0; opacity:0;
+      background:radial-gradient(circle at top right, rgba(255,255,255,.12), transparent 35%);
+      transition:opacity .45s var(--ease);
+    }
+    .card:hover{transform:translateY(-8px); border-color:var(--line-strong); background:rgba(255,255,255,.04); box-shadow:0 20px 50px rgba(0,0,0,.22)}
+    .card:hover::before{opacity:1}
+    .card-top{position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; color:rgba(255,255,255,.35); font-size:12px; letter-spacing:.28em}
+    .card-title{position:relative; z-index:1; margin:28px 0 0; font-size:32px; line-height:1.15}
+    .card-en{position:relative; z-index:1; margin-top:10px; font-size:12px; letter-spacing:.26em; color:rgba(255,255,255,.40)}
+    .card-desc{position:relative; z-index:1; margin-top:24px; color:var(--text-soft); line-height:1.9; font-size:14px}
+    .card-line{position:relative; z-index:1; margin-top:28px; height:1px; background:rgba(255,255,255,.10); overflow:hidden}
+    .card-line span{display:block; width:0; height:100%; background:#fff; transition:width .45s var(--ease)}
+    .card:hover .card-line span{width:100%}
+    .card-arrow{font-size:18px; transition:transform .45s var(--ease), color .45s var(--ease)}
+    .card:hover .card-arrow{transform:translate(2px,-2px); color:#fff}
+    .about{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:rgba(255,255,255,.02)}
+    .about-grid,.contact-grid{display:grid; grid-template-columns:.92fr 1.08fr; gap:40px; align-items:start}
+    .about-note{
+      margin-top:24px; border:1px solid var(--line); border-radius:var(--radius-lg); background:var(--panel);
+      padding:24px; color:var(--text-soft); line-height:1.9; transition:transform .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease);
+    }
+    .about-note:hover{transform:scale(1.01); border-color:var(--line-strong); background:rgba(255,255,255,.04)}
+    .contact-panel{
+      position:relative; overflow:hidden; border-radius:36px; border:1px solid var(--line); background:var(--panel); padding:40px;
+    }
+    .contact-panel::before{
+      content:""; position:absolute; inset:0; background:radial-gradient(circle at top right, rgba(255,255,255,.12), transparent 35%); pointer-events:none;
+    }
+    .contact-grid{position:relative}
+    .contact-items{display:grid; gap:16px; color:rgba(255,255,255,.70); font-size:14px}
+    .contact-item{
+      border:1px solid var(--line); border-radius:18px; padding:16px 18px;
+      transition:transform .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease);
+    }
+    .contact-item:hover{transform:translateX(6px); border-color:var(--line-strong); background:rgba(255,255,255,.05)}
+    .contact-index{color:rgba(255,255,255,.45); margin-right:12px}
+    .detail-page{min-height:100vh; display:none; background:var(--bg)}
+    .detail-page.active{display:block}
+    .detail-back{
+      display:inline-flex; align-items:center; gap:8px; margin-bottom:40px; color:rgba(255,255,255,.65);
+      cursor:pointer; transition:color .3s var(--ease), transform .3s var(--ease);
+    }
+    .detail-back:hover{color:#fff; transform:translateX(-2px)}
+    .detail-grid{display:grid; grid-template-columns:.95fr 1.05fr; gap:48px; padding:72px 0}
+    .detail-pill{
+      display:inline-flex; padding:10px 16px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(255,255,255,.04); color:rgba(255,255,255,.55); font-size:12px; letter-spacing:.30em;
+    }
+    .detail-title{margin:22px 0 0; font-size:clamp(42px,6vw,72px); line-height:1.06}
+    .detail-en{margin-top:12px; font-size:12px; letter-spacing:.28em; color:rgba(255,255,255,.40)}
+    .detail-intro{margin-top:28px; max-width:560px; color:var(--text-soft); line-height:1.9}
+    .detail-cases{
+      border:1px solid var(--line); border-radius:32px; background:var(--panel); padding:28px;
+    }
+    .detail-cases-label{font-size:12px; letter-spacing:.28em; color:rgba(255,255,255,.35); margin-bottom:22px}
+    .detail-case{
+      border:1px solid var(--line); border-radius:24px; background:rgba(0,0,0,.20);
+      padding:24px; transition:transform .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease);
+    }
+    .detail-case + .detail-case{margin-top:16px}
+    .detail-case:hover{transform:translateX(6px); border-color:var(--line-strong); background:rgba(255,255,255,.04)}
+    .detail-case-top{display:flex; justify-content:space-between; gap:16px; font-size:12px; letter-spacing:.28em; color:rgba(255,255,255,.35)}
+    .detail-case-title{margin-top:18px; font-size:28px; line-height:1.2}
+    .detail-case-desc{margin-top:12px; color:var(--text-soft); line-height:1.8; font-size:14px}
+    .reveal{opacity:0; transform:translateY(24px); transition:opacity .8s var(--ease), transform .8s var(--ease)}
+    .reveal.revealed{opacity:1; transform:translateY(0)}
+    @media (max-width:980px){
+      .cards,.about-grid,.contact-grid,.detail-grid{grid-template-columns:1fr}
+      .hero{padding-top:72px; padding-bottom:96px}
+      .hero-visual{height:420px}
+      .contact-panel{padding:28px}
+    }
+    @media (max-width:640px){
+      .container{width:min(var(--container), calc(100% - 28px))}
+      .section{padding:72px 0}
+      .hero-visual{height:340px; border-radius:28px}
+      .hero-actions{gap:12px}
+      .btn{width:100%; justify-content:center}
+      .card,.contact-panel,.detail-cases{padding:22px}
+      .card-title{font-size:28px}
+      .detail-case-title{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="site-bg"></div>
+
+  <main id="homePage">
+    <section class="hero">
+      <div class="grid-bg"></div>
+      <div class="hero-orb-1"></div>
+      <div class="hero-orb-2"></div>
+      <div class="hero-orb-3"></div>
+
+      <div class="container">
+        <div class="hero-head reveal">
+          <div class="brand-small">XUQU TECH</div>
+          <div class="brand-pill"><span class="spark"></span> NANJING XUQU TECHNOLOGY CO., LTD.</div>
+          <h1>用 AI 构建更具<br />科技感的创意表达</h1>
+          <p>聚焦 AI 视频、AI x UI 与 AI 培训，以创意、系统与落地能力，为品牌和企业提供更高效的智能解决方案。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">咨询合作 <span class="arrow">↗</span></a>
+            <a class="btn btn-secondary" href="#services">查看服务</a>
+          </div>
+        </div>
+
+        <div class="hero-visual-wrap reveal">
+          <div class="hero-visual" id="heroVisual">
+            <div class="hero-inner-glow"></div>
+            <div class="scan-line"></div>
+            <svg viewBox="0 0 760 420" class="hero-svg" id="heroSvg" aria-hidden="true"></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section services">
+      <div class="container">
+        <div class="services-top reveal">
+          <div>
+            <div class="section-title-label">SERVICES</div>
+            <h2 class="section-title">核心业务</h2>
+          </div>
+          <p class="section-desc">点击每个业务模块，可进入对应详情页查看案例方向。</p>
+        </div>
+
+        <div class="cards">
+          <button class="card reveal" data-service="video" type="button">
+            <div class="card-top"><span>01</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">AI视频</h3>
+            <div class="card-en">AI VIDEO</div>
+            <p class="card-desc">AI 视频策划、生成与包装，让内容生产更快、更稳定。</p>
+            <div class="card-line"><span></span></div>
+          </button>
+
+          <button class="card reveal" data-service="ui" type="button">
+            <div class="card-top"><span>02</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">AI x UI</h3>
+            <div class="card-en">AIX UI</div>
+            <p class="card-desc">结合 AI 工作流与界面设计，构建更智能的数字体验。</p>
+            <div class="card-line"><span></span></div>
+          </button>
+
+          <button class="card reveal" data-service="training" type="button">
+            <div class="card-top"><span>03</span><span class="card-arrow">↗</span></div>
+            <h3 class="card-title">AI培训</h3>
+            <div class="card-en">AI TRAINING</div>
+            <p class="card-desc">企业培训与实战工作坊，帮助团队快速建立 AI 应用能力。</p>
+            <div class="card-line"><span></span></div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about">
+      <div class="container about-grid">
+        <div class="reveal">
+          <div class="section-title-label">ABOUT</div>
+          <h2 class="section-title">以序为始，以曲成势</h2>
+        </div>
+        <div class="reveal">
+          <p class="section-desc">“序曲”意味着开始，也意味着为更大的表达建立秩序。官网视觉以节奏、波形与序列感为核心，传达理性与未来感并存的品牌气质。</p>
+          <div class="about-note">黑白极简 + 动态交互 + 微动效细节，强化序曲科技在 AI 创意与智能体验领域的专业形象。</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div class="contact-grid">
+            <div>
+              <div class="section-title-label">CONTACT</div>
+              <h2 class="section-title">一起做更有未来感的 AI 项目</h2>
+              <p class="section-desc" style="max-width:560px; margin-top:24px;">适合放置微信、邮箱与商务合作入口，也可以继续扩展为官网正式联系页。</p>
+            </div>
+            <div class="contact-items">
+              <div class="contact-item"><span class="contact-index">01</span>公司名称：南京序曲科技有限公司</div>
+              <div class="contact-item"><span class="contact-index">02</span>合作方向：AI 视频 / AI x UI / AI 培训</div>
+              <div class="contact-item"><span class="contact-index">03</span>邮箱：hello@xuqutech.com</div>
+              <div class="contact-item"><span class="contact-index">04</span>城市：南京</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="detail-page" id="detailPage">
+    <div class="container">
+      <div class="detail-grid">
+        <div class="reveal revealed">
+          <div class="detail-back" id="backButton">← 返回首页</div>
+          <div class="detail-pill">CASE DETAILS</div>
+          <h1 class="detail-title" id="detailTitle"></h1>
+          <div class="detail-en" id="detailEn"></div>
+          <p class="detail-intro" id="detailIntro"></p>
+        </div>
+
+        <div class="detail-cases reveal revealed">
+          <div class="detail-cases-label">SELECTED CASES</div>
+          <div id="detailCases"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const serviceData = {
+      video: {
+        title: 'AI视频',
+        en: 'AI VIDEO',
+        intro: '面向品牌传播、产品发布、课程内容与社媒运营，提供从创意脚本到视觉生成、后期包装的一体化 AI 视频方案。',
+        cases: [
+          { title: '品牌发布短片系统', tag: 'BRAND FILM', desc: 'AI 分镜 + 动态生成，形成系列化品牌视频内容。' },
+          { title: '课程内容可视化包装', tag: 'EDUCATION', desc: '将知识转化为更具传播力的视频表达，适用于高校课程与培训产品。' },
+          { title: '企业社媒内容工厂', tag: 'WORKFLOW', desc: '建立 AI 驱动的视频内容生产机制，提升效率并统一调性。' }
+        ]
+      },
+      ui: {
+        title: 'AI x UI',
+        en: 'AIX UI',
+        intro: '围绕智能产品、内容平台与创新业务场景，提供从交互策略到视觉系统、AI 能力整合的产品体验设计。',
+        cases: [
+          { title: '智能工作台界面系统', tag: 'DASHBOARD', desc: '为 AI 工具平台构建高效率、高辨识度的产品界面。' },
+          { title: '多端一致性体验升级', tag: 'DESIGN SYSTEM', desc: '整合桌面端与移动端体验规范，建立统一组件体系。' },
+          { title: 'AI 功能可视化表达', tag: 'INTERACTION', desc: '通过状态反馈与微动效设计，让复杂 AI 能力更易理解。' }
+        ]
+      },
+      training: {
+        title: 'AI培训',
+        en: 'AI TRAINING',
+        intro: '聚焦企业内训、院校课程与实战型工作坊，帮助组织建立 AI 工具认知、创作方法与真实落地能力。',
+        cases: [
+          { title: '企业 AI 赋能训练营', tag: 'WORKSHOP', desc: '覆盖工具认知、岗位应用与团队协作，帮助组织建立 AI 工作流。' },
+          { title: '高校 AIGC 课程共建', tag: 'COURSE DESIGN', desc: '面向高校与教育机构设计系统化课程内容。' },
+          { title: '管理层 AI 认知升级', tag: 'STRATEGY', desc: '帮助管理者理解 AI 对业务与组织的影响，形成更清晰的推进路径。' }
+        ]
+      }
+    };
+
+    const heroVisual = document.getElementById('heroVisual');
+    const heroSvg = document.getElementById('heroSvg');
+    const homePage = document.getElementById('homePage');
+    const detailPage = document.getElementById('detailPage');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailEn = document.getElementById('detailEn');
+    const detailIntro = document.getElementById('detailIntro');
+    const detailCases = document.getElementById('detailCases');
+    const backButton = document.getElementById('backButton');
+
+    const center = 24;
+    const totalBars = 49;
+    const bars = [];
+    let mouseX = 0;
+    let mouseY = 0;
+    let hovering = false;
+    let pulseCount = 0;
+
+    function createHeroLines() {
+      heroSvg.innerHTML = '';
+      for (let i = 0; i < totalBars; i++) {
+        const distance = Math.abs(i - center);
+        const base = Math.exp(-Math.pow(distance / center * 2.4, 2));
+        const notch = 1 - Math.exp(-Math.pow((distance - 2.5) / 1.4, 2));
+        const microNoise = 1 + Math.sin(i * 0.9) * 0.06;
+        const height = (16 + base * notch * 190) * microNoise;
+        const opacity = 0.16 + base * 0.84;
+        const delay = i * 0.028;
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('stroke', 'white');
+        line.setAttribute('stroke-linecap', 'round');
+        line.setAttribute('stroke-width', '1.2');
+        line.classList.add('hero-line');
+        line.style.animationDelay = `${delay}s`;
+        heroSvg.appendChild(line);
+
+        bars.push({ i, distance, height, opacity, line });
+      }
+
+      const core = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      core.setAttribute('cx', '380');
+      core.setAttribute('cy', '210');
+      core.setAttribute('r', '3');
+      core.setAttribute('fill', 'white');
+      core.setAttribute('id', 'heroCore');
+      core.classList.add('hero-core');
+      heroSvg.appendChild(core);
+    }
+
+    function renderHero() {
+      const spacing = 14;
+      bars.forEach((bar) => {
+        const x = 70 + bar.i * spacing;
+        const influence = Math.exp(-bar.distance / 9);
+        const offsetX = mouseX * influence * 18;
+        const offsetY = mouseY * influence * 6;
+
+        bar.line.setAttribute('x1', x + offsetX);
+        bar.line.setAttribute('x2', x + offsetX);
+        bar.line.setAttribute('y1', 210 - bar.height / 2 + offsetY);
+        bar.line.setAttribute('y2', 210 + bar.height / 2 + offsetY);
+        bar.line.style.opacity = bar.opacity;
+        bar.line.classList.toggle('hovering', hovering);
+      });
+    }
+
+    function triggerPulse() {
+      pulseCount += 1;
+      const core = document.getElementById('heroCore');
+      if (core) {
+        core.style.animation = 'none';
+        core.getBoundingClientRect();
+        core.style.animation = 'corePulse 1.2s ease-in-out';
+      }
+
+      const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      ring.setAttribute('cx', '380');
+      ring.setAttribute('cy', '210');
+      ring.setAttribute('r', '8');
+      ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', 'rgba(255,255,255,.35)');
+      ring.setAttribute('stroke-width', '1');
+      heroSvg.appendChild(ring);
+
+      ring.animate(
+        [
+          { transform: 'scale(.7)', opacity: .65, transformOrigin: '380px 210px' },
+          { transform: 'scale(6.5)', opacity: 0, transformOrigin: '380px 210px' }
+        ],
+        { duration: 1100, easing: 'cubic-bezier(.22,.61,.36,1)' }
+      );
+
+      setTimeout(() => ring.remove(), 1150);
+    }
+
+    heroVisual.addEventListener('mousemove', (e) => {
+      const rect = heroVisual.getBoundingClientRect();
+      mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+      mouseY = (e.clientY - rect.top) / rect.height - 0.5;
+      hovering = true;
+      heroVisual.classList.add('is-hovering');
+      renderHero();
+    });
+
+    heroVisual.addEventListener('mouseleave', () => {
+      mouseX = 0;
+      mouseY = 0;
+      hovering = false;
+      heroVisual.classList.remove('is-hovering');
+      renderHero();
+    });
+
+    heroVisual.addEventListener('click', triggerPulse);
+
+    function openDetail(key) {
+      const service = serviceData[key];
+      if (!service) return;
+
+      detailTitle.textContent = service.title;
+      detailEn.textContent = service.en;
+      detailIntro.textContent = service.intro;
+      detailCases.innerHTML = service.cases.map((item, index) => `
+        <div class="detail-case">
+          <div class="detail-case-top"><span>0${index + 1}</span><span>${item.tag}</span></div>
+          <div class="detail-case-title">${item.title}</div>
+          <div class="detail-case-desc">${item.desc}</div>
+        </div>
+      `).join('');
+
+      homePage.classList.add('hidden');
+      detailPage.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    document.querySelectorAll('[data-service]').forEach((el) => {
+      el.addEventListener('click', () => openDetail(el.dataset.service));
+    });
+
+    backButton.addEventListener('click', () => {
+      detailPage.classList.remove('active');
+      homePage.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    createHeroLines();
+    renderHero();
+  </script>
+</body>
+</html>
